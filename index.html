@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial;
+}
+
+/* animated background */
+body{
+  height:100vh;
+  background:linear-gradient(-45deg,#ff0080,#ff4da6,#ff99cc,#ff66cc);
+  background-size:400% 400%;
+  animation:bg 12s infinite linear;
+  overflow:hidden;
+  color:white;
+  text-align:center;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* intro */
+#intro{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:black;
+  z-index:999;
+}
+
+#intro h1{
+  font-size:60px;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{ text-shadow:0 0 10px pink;}
+  to{ text-shadow:0 0 40px #ff0080;}
+}
+
+#intro button{
+  padding:18px 50px;
+  font-size:20px;
+  border:none;
+  border-radius:40px;
+  background:#ff0080;
+  color:white;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+/* pages */
+.page{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:20px;
+}
+
+.active{
+  display:flex;
+}
+
+/* card */
+.card{
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.15);
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 0 30px rgba(255,0,120,0.7);
+  max-width:600px;
+  animation:zoom 1s;
+}
+
+@keyframes zoom{
+  from{transform:scale(0.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* buttons */
+button{
+  padding:15px 40px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#ff0080;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+/* memory grid */
+.memory{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:15px;
+  width:90%;
+  margin-top:20px;
+}
+
+.memory img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:15px;
+  box-shadow:0 0 10px #ff0080;
+  transition:0.4s;
+}
+
+.memory img:hover{
+  transform:scale(1.1);
+}
+
+/* eyes image */
+.eye-img{
+  width:280px;
+  border-radius:20px;
+  box-shadow:0 0 25px pink;
+  margin-top:20px;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+/* clickable image */
+.click-img{
+  width:200px;
+  border-radius:20px;
+  margin-top:20px;
+  cursor:pointer;
+  box-shadow:0 0 20px pink;
+  transition:0.3s;
+}
+
+.click-img:hover{
+  transform:scale(1.1);
+}
+
+/* fireworks */
+#fireworks{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+video{
+  width:240px;
+  border-radius:20px;
+  margin-top:10px;
+  box-shadow:0 0 20px pink;
+}
+
+.bye{
+  width:220px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<audio id="bgAudio" src="zara.mp3" loop></audio>
+<div id="intro">
+  <h1>💖 Birthday Surprise for motu 💖</h1>
+  <p>Something beautiful is waiting for you...</p>
+  <button onclick="start()">Enter</button>
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<!-- PAGE 1 -->
+<div class="page active">
+  <div class="card">
+    <video id="heloVideo" src="helo.mp4" loop muted></video>
+    <h1>Welcome My motu  ❤️</h1>
+    <p>
+      Today is a very special day because it's your birthday.  
+      I made this little surprise just to see your beautiful smile.
+    </p>
+    <button onclick="next()">Start</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="card">
+    <h1>💌 A Message For You</h1>
+    <p>
+      You are not just someone special…  
+      You are the reason for many smiles in my life.  
+      Your presence makes everything brighter.
+    </p>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <h1>📸 Our Memories</h1>
+  <p>Every moment with you is a beautiful memory.</p>
+  <br><p>ujāle apnī yādoñ ke hamāre saath rahne do
+  na jaane kis galī meñ zindagī kī shaam ho jaa.e</p>
+  <br><p>bolo wah wah 😂</p>
+  <div class="memory">
+    <img src="hug.jfif">
+    <img src="go.jfif">
+    <img src="ro.jfif">
+    <img src="thik.jfif">
+    <img src="walk.jfif">
+    <img src="cudle.jfif">
+  </div>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 4 EYES -->
+<div class="page">
+  <h1>✨ Your Beautiful Eyes</h1>
+  <p>
+    Your eyes are the most beautiful thing  
+    I have ever seen in my life.<br>ہم نے دیکھا ہے بہت غور سے
+    تیرے چہرے پہ تیری آنکھیں کمال کرتی ہیں
+  </p>
+  <img class="eye-img" src="cutie.jpg">
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+  <div class="card">
+    <h1>💝 One More Surprise</h1>
+    <p>Click the gift to open the final surprise 🎁</p>
+    <img src="gift.gif" class="click-img" onclick="next()">
+  </div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+  <div class="card">
+    <h1>🎉 HAPPY BIRTHDAY Dear SADIA 😘🎉</h1>
+    <p>
+      May your life be filled with happiness, love and success.  
+      You deserve all the beautiful things in the world.
+    </p>
+    <video id="catVideo" src="cute cat.mp4" loop muted></video>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- PAGE 7 NEW -->
+<div class="page">
+  <div class="card">
+    <h1>💖 I Hope You Enjoyed 💖</h1>
+    <p>
+      I hope this little surprise made you smile today.  
+      Thank you for being such an amazing person.  
+      Stay happy always.
+    </p>
+    <h2>Bye motu 💖🥳 👋</h2>
+    <video id="byeVideo" src="bye.mp4" loop muted></video>
+  </div>
+</div>
+
+<script>
+let pages=document.querySelectorAll(".page");
+let current=0;
+
+// START - hide intro and play background music
+function start(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("bgAudio").play(); // play bg music after click
+  document.getElementById("heloVideo").play(); // first video
+}
+
+// NEXT PAGE
+function next(){
+  pages[current].classList.remove("active");
+  current++;
+  if(current<pages.length){
+    pages[current].classList.add("active");
+  }
+
+  // play videos on respective pages
+  if(current==0){
+    document.getElementById("heloVideo").play();
+  }
+  if(current==5){
+    document.getElementById("catVideo").play();
+    fireworks(); // fireworks on page 6
+  }
+  if(current==6){
+    document.getElementById("byeVideo").play();
+  }
+}
+
+/* fireworks */
+function fireworks(){
+  let canvas=document.getElementById("fireworks");
+  let ctx=canvas.getContext("2d");
+
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  let particles=[];
+
+  for(let i=0;i<200;i++){
+    particles.push({
+      x:canvas.width/2,
+      y:canvas.height/2,
+      vx:(Math.random()-0.5)*12,
+      vy:(Math.random()-0.5)*12
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
+      ctx.fillRect(p.x,p.y,4,4);
+      p.x+=p.vx;
+      p.y+=p.vy;
+    });
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
+</script>
+</body>
+</html>
